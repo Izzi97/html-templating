@@ -32,14 +32,14 @@ Constructs a DOM-Node that is meant to hold other DOMNodes.
 
 Constructs a DOM-Node that is meant to hold text.
 
-## Combinators
-#### append
-`append :: DOMNode element => ...DOMNode children`
-
-Appends `children` to `element`
-
 #### repeat
 `repeat :: constructor ctor => ...constructorArguments args => ...{key:val} attributes => int n => [DOMNode]`
 
 Constructs multiple identical DOMNodes by repeating the given constructor `ctor` `n` times by applying it to `args` and `attributes`.
 All identical `n` DOMNodes are returned as an array.
+
+## Combinators
+#### append
+`append :: DOMNode element => ...DOMNode children` => void
+
+Appends `children` to `element`
