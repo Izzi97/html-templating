@@ -46,3 +46,26 @@ export const set = selector => element => {
     const node = get(selector)
     node.parentNode.replaceChild(element, node)
 }
+
+// string -> element -> object -> string -> void
+export const bind = attr => element => object => propName => {
+    // bullshit case
+    if (object.hasOwnProperty(propName)) throw new Error('binding target does not exist!')
+    const hiddenPropName = '_'+propName
+    const actionPropName = hiddenPropName+'_actions'
+
+    // already set up case
+    if (object.hasOwnProperty(hiddenPropName)){
+        if (object.hasOwnProperty(actionPropName))
+            object[actionPropName].push(attrSetter(attr,element,object[hiddenPropName]))
+        else
+            throw new Error('attribute setter actions not found!')
+    }
+
+    // initial setup case
+    // todo ...
+
+    function attrSetter(attrName, element, value){
+        return _ => element.setAttribute(attrName, value)
+    }
+}
