@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./htmlTemplating.mjs" type="module" defer></script>
+    <script type="module">
+        import * as dom from './htmlTemplating.mjs'
+
+        let data = {
+            counter: 1
+        }
+
+        setInterval(_ => {
+            console.log(data)
+            data.counter = data.counter + 1
+        }, 2000)
+
+        const body = dom.element('body')([])
+        const heading = dom.textElement('h1')('counter monitoring!')([])
+        const counterDisplay = dom.textElement('p')(data.counter)([])
+        dom.bind('innerText')(counterDisplay)(data)('counter')
+
+        dom.append(body)(heading, counterDisplay)
+
+        dom.set('body')(body)
+    </script>
+    <title>html templating test</title>
+</head>
+<body>
+    
+</body>
+</html>

@@ -48,24 +48,40 @@ export const set = selector => element => {
 }
 
 // string -> element -> object -> string -> void
-export const bind = attr => element => object => propName => {
+export const bind = attrName => element => object => propName => {
     // bullshit case
-    if (object.hasOwnProperty(propName)) throw new Error('binding target does not exist!')
+    if (!object.hasOwnProperty(propName)) throw new Error('binding target does not exist!')
+
     const hiddenPropName = '_'+propName
     const actionPropName = hiddenPropName+'_actions'
 
     // already set up case
     if (object.hasOwnProperty(hiddenPropName)){
         if (object.hasOwnProperty(actionPropName))
-            object[actionPropName].push(attrSetter(attr,element,object[hiddenPropName]))
+            object[actionPropName].push(attrSetter(attrName, element, object, hiddenPropName))
         else
             throw new Error('attribute setter actions not found!')
     }
 
     // initial setup case
-    // todo ...
+    else{
+        object[hiddenPropName] = object[propName]
+        object[actionPropName] = [attrSetter(attrName, element, object, hiddenPropName)]
+        Object.defineProperty(object, propName, {
+            set: x => {
+                object[hiddenPropName] = x
+                object[actionPropName].forEach(attrSetter => attrSetter())
+            },
+            get: _ => object[hiddenPropName]
+        })
+    }
 
-    function attrSetter(attrName, element, value){
-        return _ => element.setAttribute(attrName, value)
+    function attrSetter(attrName, element, object, propName){
+        return _ => {
+            const value = object[propName]
+            if (value === element[attrName])
+                return
+            element[attrName] = value
+        }
     }
 }
