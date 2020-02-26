@@ -15,7 +15,7 @@ const p = dom.textElement('p')
 const myParagraph = p("I'm a paragraph!")({class:'some-other-class')
 
 // merge everything together
-append(myBody)(myHeading, myParagraph)
+dom.append(myBody)(myHeading, myParagraph)
 
 // replace the browser's body with your one
 dom.set('body')(myBody)
