@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" defer>
+        import * as dom from './htmlTemplating.mjs'
+
+        const data = {
+            joke: "no jokes 'round here...",
+            colorStyling: "color: black;"
+        }
+
+        async function getJoke(){
+            const res = await fetch('https://api.chucknorris.io/jokes/random')
+            const json = await res.json()
+            return json.value
+        }
+
+        function getRandomColorStyling(){
+            const r = Math.floor(Math.random() * 255)
+            const g = Math.floor(Math.random() * 255)
+            const b = Math.floor(Math.random() * 255)
+            return `color: rgb(${r},${g},${b});`
+        }
+
+        const body = dom.element('body')()
+        const title = dom.textElement('h1')('have yourself some joke, maaaaaan')({class:'title'})
+        const jokeDisplay = dom.textElement('p')(data.joke)({class:'joke-display'})
+
+        dom.bind('innerText')(jokeDisplay)(data)('joke')
+        dom.bind('style')(jokeDisplay)(data)('colorStyling')
+        dom.append(body)(title, jokeDisplay)
+        dom.set('body')(body)
+
+        setInterval(async _ => {
+            data.joke = await getJoke()
+            data.colorStyling = getRandomColorStyling()
+        }, 10000)
+    </script>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .title{
+            margin-top: 10em;
+            border-bottom: 1px solid lightgray;
+        }
+        .joke-display{
+            margin-top: 5em;
+        }
+    </style>
+    <title>html templating test</title>
+</head>
+<body>
+    
+</body>
+</html>
