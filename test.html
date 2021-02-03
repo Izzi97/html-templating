@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markup JS Test</title>
+
+    <style>
+
+        main{
+            height: 100%; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .rect{
+            width: 120px; 
+            height: 40px; 
+            margin: 1px; 
+            background-color: lightblue;
+        }
+
+    </style>
+
+</head>
+<body>
+    <script type="module">
+
+        import * as M from './markup-js.mjs'
+
+        const _ = undefined
+
+        document.body.append(
+            M.main(
+                _
+                ,
+                M.thrice(
+                    M.div( {class:'rect'} )
+                )
+            )
+        )
+
+    </script>
+</body>
+</html>
