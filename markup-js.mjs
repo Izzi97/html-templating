@@ -30,9 +30,13 @@ export const h1 = element('h1')
 export const p = element('p')
 
 export const a = element('a')
+export const lbl = element('label')
+export const ipt = element('input')
+export const btn = element('button')
 
 export const ul = element('ul')
 export const ol = element('ol')
+export const li = element('li')
 
 
 

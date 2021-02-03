@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script type="module">
+
+        import { main, h1, sec, lbl, ipt, ul, li, btn } from './markup-js.mjs'
+
+        const _ = undefined
+        const $ = selector => document.body.querySelector(selector)
+
+        const centered = { style: 'height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;'}
+
+        const form = sec( { id: 'form' } , [
+            lbl( _ , 'Title' ),
+            ipt( { type: 'text', id: 'title' } ),
+            lbl( _ , 'Author' ),
+            ipt( { type: 'text', id: 'author' } ),
+            lbl( _ , 'Rating' ),
+            ipt( { type: 'number', id: 'rating' } ),
+        ])
+
+        const makeEntry = (title, author, rating) =>
+        li( _ , [
+            lbl( _ , title),
+            lbl( _ , author),
+            lbl( _ , rating)
+        ])
+
+        function handleInput(){ 
+            $('#list').append(
+                makeEntry(
+                    $('#title').value,
+                    $('#author').value,
+                    $('#rating').value
+                )
+            )
+        }
+        
+        document.body.append(
+            main( centered ,
+            [
+                h1( _ , 'Your favourite Books!' ),
+                ul( { id: 'list' } ),
+                form,
+                btn( /*{ onclick: handleInput }*/ _ , 'add!' )
+            ])
+        )
+
+        $('button').addEventListener('click', handleInput)
+
+    </script>
+
+</body>
+</html>
