@@ -24,11 +24,13 @@
             ipt( { type: 'number', id: 'rating' } ),
         ])
 
+        const marginedLabel = text => lbl( { style: 'margin: 0.5em 0.25em;' } , text )
+
         const makeEntry = (title, author, rating) =>
-        li( _ , [
-            lbl( _ , title),
-            lbl( _ , author),
-            lbl( _ , rating)
+        li( { style: 'list-style-type: none;' } , [
+            marginedLabel( title),
+            marginedLabel( author),
+            marginedLabel( rating)
         ])
 
         function handleInput(){ 
@@ -47,7 +49,7 @@
                 h1( _ , 'Your favourite Books!' ),
                 ul( { id: 'list' } ),
                 form,
-                btn( /*{ onclick: handleInput }*/ _ , 'add!' )
+                btn( { onclick: handleInput } , 'add!' )
             ])
         )
 

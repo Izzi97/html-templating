@@ -19,7 +19,7 @@ export const element = name => (attrs, children) => {
     return e
 }
 
-// some default element constructors for conveniece
+// some default element constructors for convenience
 
 export const div = element('div')
 
