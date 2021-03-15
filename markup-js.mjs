@@ -5,16 +5,14 @@
  * a function taking an attributes object and an array of subelements
  * yielding a 'name'-element with the specified attributes and subelements
  */
-export const element = name => (attrs, children) => {
+export const element = name => (attrs = {}, children = []) => {
     
     const e = document.createElement(name || 'div')
     
-    if (attrs)
-        for (const key in attrs)
-            e.setAttribute(key, attrs[key])
+    for (const key in attrs)
+        e.setAttribute(key, attrs[key])
 
-    if (children)
-        e.append(...children)
+    e.append(...children)
 
     return e
 }
